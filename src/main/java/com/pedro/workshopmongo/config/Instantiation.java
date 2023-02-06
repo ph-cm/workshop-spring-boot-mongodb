@@ -3,6 +3,7 @@ package com.pedro.workshopmongo.config;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.TimeZone;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -42,6 +43,9 @@ public class Instantiation implements CommandLineRunner{
 		Post post2 = new Post(null , sdf.parse("23/03/2023") , "Bom dia!" , "Acordei feliz",new AuthorDTO(maria));
 		
 		postRepository.saveAll(Arrays.asList(post1 , post2));
+		
+		maria.getPosts().addAll(Arrays.asList(post1 , post2));
+		userRepository.save(maria);
 	}
 
 }
